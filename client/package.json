@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "http://coderatory.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,6 +18,7 @@
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
+    "yarn": "^1.22.4",
     "yup": "^0.27.0"
   },
   "scripts": {

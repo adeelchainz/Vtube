@@ -3,12 +3,14 @@ import {List, Typography, Avatar, Row, Col} from 'antd';
 import Axios from 'axios';
 import SideBar from './Sections/SideBar';
 import Subscriber from './Sections/Subscriber';
+import Comments from './Sections/Comments';
 
 function PostPage(props) {
 
     const videoId=props.match.params.videoId
 
     const [Video, setVideo]= useState([])
+    const [CommentList, setCommentList]= useState([])
 
     const videoVariable= {
         videoId: videoId
@@ -24,7 +26,22 @@ function PostPage(props) {
                 alert('Unable to get video')
             }
         })
+
+        Axios.post('/api/comment/getComments', videoVariable)
+        .then(response=>{
+            if(response.data.success){
+                setCommentList(response.data.comments)
+                //console.log(response.data)
+            }else {
+                alert('Unable to get video')
+            }
+        })
+
     },[])
+
+    const updateComment=(newComment)=>{
+        setCommentList(CommentList.concat(newComment))
+    }
 
     if(Video.writer){
         return (
@@ -43,6 +60,8 @@ function PostPage(props) {
                         />
                         <div></div>
                     </List.Item>
+
+                    <Comments CommentList={CommentList} postId={Video._id} refreshFunction={updateComment} />
         
                 </div>
                 </Col>
